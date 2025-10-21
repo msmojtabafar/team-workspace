@@ -39,17 +39,16 @@ A powerful real-time team collaboration platform built with **Django** and **Dja
 
 ## 📸 Screenshots
 
-### Dashboard & Project Management
-![Project List](screenshots/project-list.png)  
-*Clean project dashboard with status indicators*
+<img width="1844" height="901" alt="Screenshot From 2025-10-21 14-35-05" src="https://github.com/user-attachments/assets/f266516d-abd9-414c-bf73-ed731c42fc23" />
+<img width="1843" height="803" alt="Screenshot From 2025-10-21 14-34-56" src="https://github.com/user-attachments/assets/a09f5142-e3fd-47aa-9008-18226a1002db" />
+<img width="1847" height="696" alt="Screenshot From 2025-10-21 14-34-38" src="https://github.com/user-attachments/assets/38efd1dc-78e8-4a28-bf5d-b79b37755e29" />
+<img width="1847" height="696" alt="Screenshot From 2025-10-21 14-34-33" src="https://github.com/user-attachments/assets/1a55828b-efa0-40fd-b20f-904f34b01b9e" />
+<img width="1847" height="696" alt="Screenshot From 2025-10-21 14-34-26" src="https://github.com/user-attachments/assets/ad44e100-279b-4dbe-97e5-1a60b2a0cfe2" />
+<img width="1857" height="548" alt="Screenshot From 2025-10-21 14-34-04" src="https://github.com/user-attachments/assets/49348ced-b42e-4cd6-9149-5991463cd049" />
+<img width="1857" height="548" alt="Screenshot From 2025-10-21 14-33-56" src="https://github.com/user-attachments/assets/68f57304-bac8-426c-965f-1df5854319a9" />
+<img width="1574" height="495" alt="Screenshot From 2025-10-21 14-33-26" src="https://github.com/user-attachments/assets/bbca76e7-8edf-43de-9140-2bf38dea9bc9" />
+<img width="1841" height="951" alt="Screenshot From 2025-10-19 15-48-44" src="https://github.com/user-attachments/assets/22894e4c-96b8-4403-8134-ffddeabd12c3" />
 
-### Real-time Task Management
-![Task Management](screenshots/task-management.png)  
-*Dynamic task board with real-time updates*
-
-### Live Team Chat
-![Chat Interface](screenshots/chat-interface.png)  
-*Instant messaging with team members*
 
 ---
 
