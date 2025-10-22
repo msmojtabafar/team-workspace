@@ -9,9 +9,11 @@
 <body class="bg-gray-100">
     <nav class="bg-blue-600 text-white p-4">
         <div class="container mx-auto flex justify-between items-center">
-            <a href="{% url 'project_list' %}" class="text-xl font-bold">Team Workspace</a>
-            <div class="flex items-center space-x-4">
+            <a href="{% url 'dashboard' %}" class="text-xl font-bold">Team Workspace</a>
+            <div class="flex items-center space-x-4 space-x-reverse">
                 {% if user.is_authenticated %}
+                    <a href="{% url 'dashboard' %}" class="hover:bg-blue-700 px-3 py-2 rounded">داشبورد</a>
+                    <a href="{% url 'project_list' %}" class="hover:bg-blue-700 px-3 py-2 rounded">پروژه‌ها</a>
                     <span>سلام {{ user.username }}!</span>
                     <a href="{% url 'logout' %}" class="bg-blue-700 px-4 py-2 rounded hover:bg-blue-800">خروج</a>
                 {% else %}
