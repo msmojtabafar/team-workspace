@@ -39,17 +39,33 @@ A powerful real-time team collaboration platform built with **Django** and **Dja
 
 ## 📸 Screenshots
 
-### Dashboard & Project Management
-![Project List](screenshots/project-list.png)  
-*Clean project dashboard with status indicators*
+administration Page:
 
-### Real-time Task Management
-![Task Management](screenshots/task-management.png)  
-*Dynamic task board with real-time updates*
+<img width="1857" height="548" alt="Screenshot From 2025-10-21 14-33-56" src="https://github.com/user-attachments/assets/b2800d99-34a3-4c06-84e3-717a9fc9eb24" />
 
-### Live Team Chat
-![Chat Interface](screenshots/chat-interface.png)  
-*Instant messaging with team members*
+Dark mode:
+
+<img width="1857" height="548" alt="Screenshot From 2025-10-21 14-34-04" src="https://github.com/user-attachments/assets/c25173bf-2810-4185-b251-1f368f0c3701" />
+
+add group Page:
+
+<img width="1847" height="696" alt="Screenshot From 2025-10-21 14-34-26" src="https://github.com/user-attachments/assets/92ca1ac6-eb56-4c69-9b9b-459dea5c5ccd" />
+
+add user Page:
+
+<img width="1847" height="696" alt="Screenshot From 2025-10-21 14-34-33" src="https://github.com/user-attachments/assets/851559dc-74e7-4911-afa5-dd6c83dba174" />
+
+add chat message Page:
+
+<img width="1847" height="696" alt="Screenshot From 2025-10-21 14-34-38" src="https://github.com/user-attachments/assets/a15d1bc1-ace1-4666-9378-4ed76916e463" />
+
+add project Page:
+
+<img width="1843" height="803" alt="Screenshot From 2025-10-21 14-34-56" src="https://github.com/user-attachments/assets/5f173f7e-a719-482e-8769-a6d53636a8a0" />
+
+add task Page:
+
+<img width="1844" height="901" alt="Screenshot From 2025-10-21 14-35-05" src="https://github.com/user-attachments/assets/01c46c2e-3017-4584-a2fa-373dc1e4daa0" />
 
 ---
 
