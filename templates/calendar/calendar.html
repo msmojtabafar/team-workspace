@@ -1,0 +1,90 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="max-w-7xl mx-auto">
+    <div class="flex justify-between items-center mb-8">
+        <h1 class="text-3xl font-bold">تقویم تسک‌ها</h1>
+        <div class="flex space-x-4 space-x-reverse">
+            <a href="{% url 'today_tasks' %}" class="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700">
+                تسک‌های امروز
+            </a>
+            <a href="{% url 'upcoming_tasks' %}" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">
+                تسک‌های آینده
+            </a>
+            <a href="{% url 'project_list' %}" class="bg-gray-600 text-white px-4 py-2 rounded hover:bg-gray-700">
+                مدیریت پروژه‌ها
+            </a>
+        </div>
+    </div>
+
+    <!-- تقویم -->
+    <div class="bg-white rounded-lg shadow-md p-6">
+        <div id="calendar" class="min-h-screen"></div>
+    </div>
+</div>
+
+<!-- FullCalendar CSS -->
+<link href='https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.min.css' rel='stylesheet' />
+<script src='https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.min.js'></script>
+<script src='https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/locales/fa.js'></script>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    var calendarEl = document.getElementById('calendar');
+    
+    var calendar = new FullCalendar.Calendar(calendarEl, {
+        locale: 'fa',
+        direction: 'rtl',
+        initialView: 'dayGridMonth',
+        headerToolbar: {
+            right: 'today prev,next',
+            center: 'title',
+            left: 'dayGridMonth,timeGridWeek,timeGridDay listMonth'
+        },
+        events: '/calendar/events/',
+        eventClick: function(info) {
+            if (info.event.url) {
+                window.open(info.event.url, '_self');
+                info.jsEvent.preventDefault();
+            }
+        },
+        eventContent: function(arg) {
+            // نمایش سفارشی رویدادها
+            let titleEl = document.createElement('div');
+            titleEl.innerHTML = arg.event.title;
+            titleEl.className = 'fc-event-title';
+            
+            let projectEl = document.createElement('div');
+            projectEl.innerHTML = arg.event.extendedProps.project;
+            projectEl.className = 'fc-event-project text-xs';
+            
+            let arrayOfDomNodes = [titleEl, projectEl];
+            return { domNodes: arrayOfDomNodes };
+        }
+    });
+    
+    calendar.render();
+});
+
+// استایل‌های سفارشی
+const style = document.createElement('style');
+style.textContent = `
+    .fc-event-title {
+        font-weight: bold;
+        font-size: 12px;
+    }
+    .fc-event-project {
+        opacity: 0.8;
+        margin-top: 2px;
+    }
+    .fc-toolbar {
+        flex-direction: row-reverse;
+    }
+    .fc-direction-rtl .fc-toolbar > * > :not(:first-child) {
+        margin-left: 0.75em;
+    }
+`;
+document.head.appendChild(style);
+</script>
+{% endblock %}

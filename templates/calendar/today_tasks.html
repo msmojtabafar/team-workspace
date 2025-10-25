@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="max-w-6xl mx-auto">
+    <div class="flex justify-between items-center mb-8">
+        <h1 class="text-3xl font-bold">تسک‌های امروز</h1>
+        <div class="flex space-x-4 space-x-reverse">
+            <a href="{% url 'calendar' %}" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">
+                بازگشت به تقویم
+            </a>
+        </div>
+    </div>
+
+    <div class="bg-white rounded-lg shadow-md p-6">
+        {% if tasks %}
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                {% for task in tasks %}
+                <div class="border border-gray-200 rounded-lg p-4 hover:shadow-md transition-shadow">
+                    <div class="flex justify-between items-start mb-3">
+                        <h3 class="font-semibold text-lg">{{ task.title }}</h3>
+                        <span class="px-2 py-1 rounded text-xs 
+                            {% if task.status == 'todo' %}bg-gray-100 text-gray-800
+                            {% elif task.status == 'in_progress' %}bg-blue-100 text-blue-800
+                            {% elif task.status == 'review' %}bg-yellow-100 text-yellow-800
+                            {% else %}bg-green-100 text-green-800{% endif %}">
+                            {{ task.get_status_display }}
+                        </span>
+                    </div>
+                    
+                    <p class="text-gray-600 text-sm mb-3">{{ task.description|truncatewords:15 }}</p>
+                    
+                    <div class="flex justify-between items-center text-sm text-gray-500">
+                        <span>پروژه: {{ task.project.title }}</span>
+                        <span>ساعت: {{ task.due_date|date:"H:i" }}</span>
+                    </div>
+                    
+                    <div class="mt-3 flex justify-between items-center">
+                        <span class="px-2 py-1 rounded text-xs 
+                            {% if task.priority == 'high' %}bg-red-100 text-red-800
+                            {% elif task.priority == 'medium' %}bg-yellow-100 text-yellow-800
+                            {% else %}bg-green-100 text-green-800{% endif %}">
+                            اولویت: {{ task.get_priority_display }}
+                        </span>
+                        
+                        <a href="{% url 'project_detail' task.project.id %}" 
+                           class="text-blue-600 hover:text-blue-800 text-sm">
+                            مشاهده پروژه →
+                        </a>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        {% else %}
+            <div class="text-center py-12">
+                <p class="text-gray-500 text-lg">هیچ تسکی برای امروز وجود ندارد. 🎉</p>
+                <p class="text-gray-400 mt-2">می‌توانید روی کارهای دیگر تمرکز کنید.</p>
+            </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

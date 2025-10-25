@@ -13,7 +13,13 @@
             <div class="flex items-center space-x-4 space-x-reverse">
                 {% if user.is_authenticated %}
                     <a href="{% url 'dashboard' %}" class="hover:bg-blue-700 px-3 py-2 rounded">داشبورد</a>
+                    <a href="{% url 'calendar' %}" class="hover:bg-blue-700 px-3 py-2 rounded">تقویم</a>
                     <a href="{% url 'project_list' %}" class="hover:bg-blue-700 px-3 py-2 rounded">پروژه‌ها</a>
+                    {% if user.is_staff %}
+                    <a href="http://127.0.0.1:8080/admin/" target="_blank" class="bg-purple-600 hover:bg-purple-700 px-3 py-2 rounded">
+                        پنل ادمین
+                    </a>
+                    {% endif %}
                     <span>سلام {{ user.username }}!</span>
                     <a href="{% url 'logout' %}" class="bg-blue-700 px-4 py-2 rounded hover:bg-blue-800">خروج</a>
                 {% else %}

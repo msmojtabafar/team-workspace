@@ -22,6 +22,7 @@ INSTALLED_APPS = [
     'tasks',
     'chat',
     'dashboard',
+    'calendar_app',
 ]
 
 MIDDLEWARE = [
