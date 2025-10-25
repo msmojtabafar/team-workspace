@@ -91,7 +91,7 @@ source venv/bin/activate  # Linux/Mac
 venv\Scripts\activate    # Windows
 ```
 
-#### Install dependencies
+#### Install dependencies 
 ```bash
 pip install -r requirements.txt
 ```
