@@ -1,11 +1,17 @@
 import os
 from pathlib import Path
 
+
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 SECRET_KEY = 'django-insecure-team-workspace-secret-key-2024'
 
 DEBUG = True
+
+MEDIA_URL = '/media/'
+
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
 
 ALLOWED_HOSTS = ['*']
 
@@ -23,6 +29,7 @@ INSTALLED_APPS = [
     'chat',
     'dashboard',
     'calendar_app',
+    'attachments',
 ]
 
 MIDDLEWARE = [

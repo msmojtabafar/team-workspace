@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="max-w-2xl mx-auto">
+    <div class="bg-white rounded-lg shadow-md p-6">
+        <h1 class="text-2xl font-bold mb-6">{{ title }}</h1>
+        
+        <form method="post" enctype="multipart/form-data" class="space-y-6">
+            {% csrf_token %}
+            
+            <div>
+                <label class="block text-sm font-medium text-gray-700 mb-2">فایل</label>
+                {{ form.file }}
+                {% if form.file.errors %}
+                <div class="text-red-600 text-sm mt-1">
+                    {{ form.file.errors }}
+                </div>
+                {% endif %}
+                <p class="text-gray-500 text-xs mt-2">حداکثر حجم فایل: 10MB</p>
+            </div>
+            
+            <div>
+                <label class="block text-sm font-medium text-gray-700 mb-2">توضیحات (اختیاری)</label>
+                {{ form.description }}
+                {% if form.description.errors %}
+                <div class="text-red-600 text-sm mt-1">
+                    {{ form.description.errors }}
+                </div>
+                {% endif %}
+            </div>
+            
+            <div class="flex space-x-4 space-x-reverse">
+                <button type="submit" class="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition-colors">
+                    📤 آپلود فایل
+                </button>
+                {% if project %}
+                <a href="{% url 'project_detail' project.id %}" class="bg-gray-500 text-white px-6 py-2 rounded-lg hover:bg-gray-600 transition-colors">
+                    انصراف
+                </a>
+                {% else %}
+                <a href="{% url 'project_list' %}" class="bg-gray-500 text-white px-6 py-2 rounded-lg hover:bg-gray-600 transition-colors">
+                    انصراف
+                </a>
+                {% endif %}
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}
