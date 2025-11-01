@@ -49,6 +49,10 @@ A powerful **real-time team collaboration platform** built with **Django** and *
 
 ## 📸 Screenshots
 
+**Main Page:** 
+<img width="1832" height="889" alt="Screenshot From 2025-11-01 15-53-23" src="https://github.com/user-attachments/assets/bf9a9bcf-3563-4788-82d2-db77618aa106" />
+
+
 **Administration Page:**  
 ![Admin](https://github.com/user-attachments/assets/b2800d99-34a3-4c06-84e3-717a9fc9eb24)
 
