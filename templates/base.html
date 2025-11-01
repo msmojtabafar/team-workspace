@@ -15,6 +15,18 @@
                     <a href="{% url 'dashboard' %}" class="hover:bg-blue-700 px-3 py-2 rounded">داشبورد</a>
                     <a href="{% url 'calendar' %}" class="hover:bg-blue-700 px-3 py-2 rounded">تقویم</a>
                     <a href="{% url 'project_list' %}" class="hover:bg-blue-700 px-3 py-2 rounded">پروژه‌ها</a>
+                    
+                    <!-- دکمه نوتیفیکیشن -->
+                    <div class="relative">
+                        <button id="notification-bell" class="relative hover:bg-blue-700 px-3 py-2 rounded">
+                            🔔
+                            <span id="unread-count" class="absolute -top-1 -left-1 bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center hidden">
+                                0
+                            </span>
+                        </button>
+                        {% include 'notifications/notification_dropdown.html' %}
+                    </div>
+                    
                     {% if user.is_staff %}
                     <a href="http://127.0.0.1:8080/admin/" target="_blank" class="bg-purple-600 hover:bg-purple-700 px-3 py-2 rounded">
                         پنل ادمین
@@ -33,5 +45,30 @@
         {% block content %}
         {% endblock %}
     </main>
+
+    <script>
+        // مدیریت باز و بسته شدن dropdown نوتیفیکیشن
+        document.addEventListener('DOMContentLoaded', function() {
+            const notificationBell = document.getElementById('notification-bell');
+            const notificationDropdown = document.getElementById('notification-dropdown');
+            
+            if (notificationBell && notificationDropdown) {
+                notificationBell.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    notificationDropdown.classList.toggle('hidden');
+                });
+                
+                // بستن dropdown وقتی جای دیگر کلیک شود
+                document.addEventListener('click', function() {
+                    notificationDropdown.classList.add('hidden');
+                });
+                
+                // جلوگیری از بسته شدن وقتی روی dropdown کلیک شود
+                notificationDropdown.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                });
+            }
+        });
+    </script>
 </body>
 </html>

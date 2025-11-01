@@ -1,0 +1,219 @@
+<div id="notification-dropdown" class="hidden absolute right-0 mt-2 w-96 bg-white rounded-lg shadow-xl z-50 border border-gray-200">
+    <div class="p-4 border-b border-gray-200">
+        <div class="flex justify-between items-center">
+            <h3 class="text-lg font-semibold">اعلان‌ها</h3>
+            <div class="flex space-x-2 space-x-reverse">
+                <button id="mark-all-read" class="text-blue-600 hover:text-blue-800 text-sm">
+                    خواندن همه
+                </button>
+                <a href="{% url 'notification_list' %}" class="text-gray-600 hover:text-gray-800 text-sm">
+                    مشاهده همه
+                </a>
+            </div>
+        </div>
+    </div>
+    
+    <div class="max-h-96 overflow-y-auto">
+        <div id="notification-list">
+            <!-- اعلان‌ها اینجا لود می‌شوند -->
+        </div>
+    </div>
+    
+    <div class="p-3 bg-gray-50 border-t border-gray-200 text-center">
+        <a href="{% url 'notification_list' %}" class="text-blue-600 hover:text-blue-800 text-sm">
+            مشاهده تمام اعلان‌ها
+        </a>
+    </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const notificationBell = document.getElementById('notification-bell');
+    const notificationDropdown = document.getElementById('notification-dropdown');
+    const notificationList = document.getElementById('notification-list');
+    const unreadCount = document.getElementById('unread-count');
+    const markAllReadBtn = document.getElementById('mark-all-read');
+    
+    // لود اعلان‌ها
+    function loadNotifications() {
+        fetch('/notifications/dropdown/')
+            .then(response => response.json())
+            .then(data => {
+                updateNotificationDropdown(data);
+            });
+    }
+    
+    // بروزرسانی dropdown اعلان‌ها
+    function updateNotificationDropdown(data) {
+        notificationList.innerHTML = '';
+        
+        if (data.notifications.length === 0) {
+            notificationList.innerHTML = `
+                <div class="p-6 text-center text-gray-500">
+                    <div class="text-4xl mb-2">🔔</div>
+                    <p>هیچ اعلانی وجود ندارد</p>
+                </div>
+            `;
+            return;
+        }
+        
+        data.notifications.forEach(notification => {
+            const notificationElement = document.createElement('div');
+            notificationElement.className = `p-4 border-b border-gray-100 hover:bg-gray-50 cursor-pointer ${notification.is_read ? '' : 'bg-blue-50'}`;
+            notificationElement.innerHTML = `
+                <div class="flex space-x-3 space-x-reverse">
+                    <div class="flex-shrink-0 text-2xl">${notification.icon}</div>
+                    <div class="flex-1">
+                        <div class="flex justify-between items-start">
+                            <h4 class="font-medium text-sm ${notification.is_read ? 'text-gray-700' : 'text-gray-900'}">${notification.title}</h4>
+                            <span class="text-xs text-gray-500">${notification.created_at}</span>
+                        </div>
+                        <p class="text-sm text-gray-600 mt-1">${notification.message}</p>
+                        <div class="flex justify-between items-center mt-2">
+                            <span class="inline-block px-2 py-1 text-xs rounded-full ${notification.badge_color}">
+                                ${notification.priority}
+                            </span>
+                            ${!notification.is_read ? `
+                            <button onclick="markAsRead(${notification.id})" class="text-blue-600 hover:text-blue-800 text-xs">
+                                علامت خوانده شده
+                            </button>
+                            ` : ''}
+                        </div>
+                    </div>
+                </div>
+            `;
+            
+            // کلیک روی اعلان
+            notificationElement.addEventListener('click', function() {
+                if (notification.action_url && notification.action_url !== '#') {
+                    window.location.href = notification.action_url;
+                }
+                if (!notification.is_read) {
+                    markAsRead(notification.id);
+                }
+            });
+            
+            notificationList.appendChild(notificationElement);
+        });
+        
+        // بروزرسانی تعداد اعلان‌های خوانده نشده
+        updateUnreadCount(data.unread_count);
+    }
+    
+    // علامت‌گذاری اعلان به عنوان خوانده شده
+    function markAsRead(notificationId) {
+        fetch(`/notifications/${notificationId}/read/`, {
+            method: 'POST',
+            headers: {
+                'X-CSRFToken': getCookie('csrftoken'),
+                'Content-Type': 'application/json',
+            },
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                loadNotifications();
+            }
+        });
+    }
+    
+    // علامت‌گذاری همه اعلان‌ها به عنوان خوانده شده
+    markAllReadBtn.addEventListener('click', function(e) {
+        e.stopPropagation();
+        fetch('/notifications/read-all/', {
+            method: 'POST',
+            headers: {
+                'X-CSRFToken': getCookie('csrftoken'),
+                'Content-Type': 'application/json',
+            },
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                loadNotifications();
+            }
+        });
+    });
+    
+    // بروزرسانی تعداد اعلان‌های خوانده نشده
+    function updateUnreadCount(count) {
+        if (unreadCount) {
+            if (count > 0) {
+                unreadCount.textContent = count > 99 ? '99+' : count;
+                unreadCount.classList.remove('hidden');
+            } else {
+                unreadCount.classList.add('hidden');
+            }
+        }
+    }
+    
+    // تابع کمکی برای گرفتن CSRF token
+    function getCookie(name) {
+        let cookieValue = null;
+        if (document.cookie && document.cookie !== '') {
+            const cookies = document.cookie.split(';');
+            for (let i = 0; i < cookies.length; i++) {
+                const cookie = cookies[i].trim();
+                if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                }
+            }
+        }
+        return cookieValue;
+    }
+    
+    // لود اولیه اعلان‌ها
+    loadNotifications();
+    
+    // WebSocket برای اعلان‌های real-time
+    const notificationSocket = new WebSocket(
+        'ws://' + window.location.host + '/ws/notifications/'
+    );
+    
+    notificationSocket.onmessage = function(e) {
+        const data = JSON.parse(e.data);
+        
+        if (data.type === 'new_notification') {
+            // نمایش نوتیفیکیشن toast
+            showNotificationToast(data.notification);
+            // بروزرسانی dropdown
+            loadNotifications();
+        } else if (data.type === 'unread_count') {
+            updateUnreadCount(data.count);
+        }
+    };
+    
+    // نمایش toast notification
+    function showNotificationToast(notification) {
+        const toast = document.createElement('div');
+        toast.className = `fixed top-4 left-4 bg-white border-l-4 border-${notification.priority_color}-500 shadow-lg rounded-lg p-4 max-w-sm z-50 transform transition-transform duration-300 translate-x-0`;
+        toast.style.borderLeftColor = getComputedStyle(document.documentElement).getPropertyValue(`--${notification.priority_color}-500`);
+        
+        toast.innerHTML = `
+            <div class="flex space-x-3 space-x-reverse">
+                <div class="flex-shrink-0 text-2xl">${notification.icon}</div>
+                <div class="flex-1">
+                    <h4 class="font-medium text-gray-900">${notification.title}</h4>
+                    <p class="text-sm text-gray-600 mt-1">${notification.message}</p>
+                    <div class="flex justify-between items-center mt-2">
+                        <span class="text-xs text-gray-500">همین الان</span>
+                        <button onclick="this.parentElement.parentElement.parentElement.remove()" class="text-gray-400 hover:text-gray-600">
+                            ✕
+                        </button>
+                    </div>
+                </div>
+            </div>
+        `;
+        
+        document.body.appendChild(toast);
+        
+        // حذف خودکار بعد از 5 ثانیه
+        setTimeout(() => {
+            if (toast.parentElement) {
+                toast.remove();
+            }
+        }, 5000);
+    }
+});
+</script>

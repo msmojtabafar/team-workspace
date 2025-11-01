@@ -12,6 +12,7 @@ urlpatterns = [
     path('tasks/', include('tasks.urls')),
     path('chat/', include('chat.urls')),
     path('attachments/', include('attachments.urls')),
+    path('notifications/', include('notifications.urls')),
     path('accounts/', include('django.contrib.auth.urls')),
     path('', RedirectView.as_view(url='/dashboard/')),
 ]

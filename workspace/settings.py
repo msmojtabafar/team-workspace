@@ -30,6 +30,7 @@ INSTALLED_APPS = [
     'dashboard',
     'calendar_app',
     'attachments',
+    'notifications',
 ]
 
 MIDDLEWARE = [
