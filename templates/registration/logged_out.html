@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="max-w-md mx-auto bg-white rounded-lg shadow-md p-6 mt-8">
+    <div class="text-center">
+        <div class="text-6xl mb-4">👋</div>
+        <h2 class="text-2xl font-bold mb-4">با موفقیت خارج شدید</h2>
+        <p class="text-gray-600 mb-6">امیدواریم به زودی بازگردید!</p>
+        
+        <div class="space-y-4">
+            <a href="{% url 'login' %}" 
+               class="block w-full bg-blue-600 text-white py-3 rounded-lg hover:bg-blue-700 transition-colors text-center">
+                ورود مجدد
+            </a>
+            <a href="/" 
+               class="block w-full bg-gray-500 text-white py-3 rounded-lg hover:bg-gray-600 transition-colors text-center">
+                بازگشت به صفحه اصلی
+            </a>
+        </div>
+    </div>
+</div>
+{% endblock %}

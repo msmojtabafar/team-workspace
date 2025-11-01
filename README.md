@@ -39,13 +39,13 @@ A powerful real-time team collaboration platform built with **Django** and **Dja
 
 ## 📸 Screenshots
 
-Main Page:
-
-<img width="1732" height="829" alt="Screenshot From 2025-10-26 09-29-57" src="https://github.com/user-attachments/assets/bc068fc8-4b0c-422e-ae81-9f75dc20ea4f" />
-
 administration Page:
 
-<img width="1303" height="829" alt="Screenshot From 2025-10-26 09-30-18" src="https://github.com/user-attachments/assets/aceb892c-52b9-4171-aaa1-3b87d627b189" />
+<img width="1857" height="548" alt="Screenshot From 2025-10-21 14-33-56" src="https://github.com/user-attachments/assets/b2800d99-34a3-4c06-84e3-717a9fc9eb24" />
+
+Dark mode:
+
+<img width="1857" height="548" alt="Screenshot From 2025-10-21 14-34-04" src="https://github.com/user-attachments/assets/c25173bf-2810-4185-b251-1f368f0c3701" />
 
 add group Page:
 

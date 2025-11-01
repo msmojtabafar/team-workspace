@@ -2,15 +2,30 @@
 <html lang="fa" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="theme-color" content="#2563eb">
+    <meta name="description" content="سیستم مدیریت پروژه تیمی با قابلیت‌های Real-time">
+    
+    <!-- PWA Meta Tags -->
+    <link rel="manifest" href="/static/manifest.json">
+    <link rel="icon" type="image/png" href="/static/icons/icon-192x192.png">
+    <link rel="apple-touch-icon" href="/static/icons/icon-192x192.png">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="apple-mobile-web-app-title" content="Team Workspace">
+    
     <title>Team Workspace</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- استایل‌های مخصوص موبایل -->
+    <link rel="stylesheet" href="/static/css/mobile.css">
 </head>
 <body class="bg-gray-100">
-    <nav class="bg-blue-600 text-white p-4">
+    <!-- نوار بالایی -->
+    <nav class="bg-blue-600 text-white p-4 safe-area-top">
         <div class="container mx-auto flex justify-between items-center">
             <a href="{% url 'dashboard' %}" class="text-xl font-bold">Team Workspace</a>
-            <div class="flex items-center space-x-4 space-x-reverse">
+            <div class="flex items-center space-x-4 space-x-reverse desktop-only">
                 {% if user.is_authenticated %}
                     <a href="{% url 'dashboard' %}" class="hover:bg-blue-700 px-3 py-2 rounded">داشبورد</a>
                     <a href="{% url 'calendar' %}" class="hover:bg-blue-700 px-3 py-2 rounded">تقویم</a>
@@ -28,12 +43,25 @@
                     </div>
                     
                     {% if user.is_staff %}
-                    <a href="http://127.0.0.1:8080/admin/" target="_blank" class="bg-purple-600 hover:bg-purple-700 px-3 py-2 rounded">
+                    <a href="/admin/" class="bg-purple-600 hover:bg-purple-700 px-3 py-2 rounded">
                         پنل ادمین
                     </a>
                     {% endif %}
-                    <span>سلام {{ user.username }}!</span>
-                    <a href="{% url 'logout' %}" class="bg-blue-700 px-4 py-2 rounded hover:bg-blue-800">خروج</a>
+                    
+                    <!-- دکمه نصب PWA -->
+                    <button id="install-pwa" class="bg-green-600 hover:bg-green-700 px-3 py-2 rounded hidden">
+                        📱 نصب اپ
+                    </button>
+                    
+                    <span class="mobile-hidden">سلام {{ user.username }}!</span>
+                    
+                    <!-- فرم logout -->
+                    <form method="post" action="{% url 'logout' %}" class="inline">
+                        {% csrf_token %}
+                        <button type="submit" class="bg-blue-700 px-4 py-2 rounded hover:bg-blue-800 mobile-hidden">
+                            خروج
+                        </button>
+                    </form>
                 {% else %}
                     <a href="{% url 'login' %}" class="bg-blue-700 px-4 py-2 rounded hover:bg-blue-800">ورود</a>
                 {% endif %}
@@ -41,11 +69,14 @@
         </div>
     </nav>
 
-    <main class="container mx-auto mt-8 p-4">
+    <main class="container mx-auto mt-8 p-4 safe-area-left safe-area-right">
         {% block content %}
         {% endblock %}
     </main>
 
+    <!-- اسکریپت‌های مخصوص موبایل -->
+    <script src="/static/js/mobile.js"></script>
+    
     <script>
         // مدیریت باز و بسته شدن dropdown نوتیفیکیشن
         document.addEventListener('DOMContentLoaded', function() {
@@ -60,14 +91,28 @@
                 
                 // بستن dropdown وقتی جای دیگر کلیک شود
                 document.addEventListener('click', function() {
-                    notificationDropdown.classList.add('hidden');
+                    if (notificationDropdown) {
+                        notificationDropdown.classList.add('hidden');
+                    }
                 });
                 
                 // جلوگیری از بسته شدن وقتی روی dropdown کلیک شود
-                notificationDropdown.addEventListener('click', function(e) {
-                    e.stopPropagation();
-                });
+                if (notificationDropdown) {
+                    notificationDropdown.addEventListener('click', function(e) {
+                        e.stopPropagation();
+                    });
+                }
             }
+
+            // مدیریت فرم logout
+            const logoutForms = document.querySelectorAll('form[action*="logout"]');
+            logoutForms.forEach(form => {
+                form.addEventListener('submit', function(e) {
+                    if (!confirm('آیا مطمئن هستید که می‌خواهید خارج شوید؟')) {
+                        e.preventDefault();
+                    }
+                });
+            });
         });
     </script>
 </body>
