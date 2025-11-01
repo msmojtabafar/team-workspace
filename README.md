@@ -5,23 +5,34 @@
 ![WebSocket](https://img.shields.io/badge/WebSocket-Real--time-orange)
 ![Python](https://img.shields.io/badge/Python-3.11%2B-yellow)
 
-A powerful real-time team collaboration platform built with **Django** and **Django Channels**, featuring project management, task tracking, and live chat capabilities.
+A powerful **real-time team collaboration platform** built with **Django** and **Django Channels**, featuring project management, task tracking, and live chat capabilities.
 
 ---
 
 ## ✨ Features
 
 ### 🎯 Core Functionality
-- 📂 **Project Management** – Create and organize team projects  
-- ✅ **Task Tracking** – Assign tasks with priorities and statuses  
-- 💬 **Real-time Chat** – Instant messaging powered by WebSockets  
-- 👥 **Team Collaboration** – Multi-user project environments  
+- 📂 **Project Management** – Create and organize projects
+- ✅ **Task Tracking** – Assign and monitor tasks with priorities and statuses
+- 💬 **Real-time Chat** – Instant messaging powered by WebSockets
+- 👥 **Team Collaboration** – Multi-user environments for productivity
 
-### 🔥 Real-time Capabilities
-- Live task status updates  
-- Instant messaging between team members  
-- Real-time notifications  
-- Seamless WebSocket connections  
+### ⚡ Real-time Capabilities
+- Live task status updates
+- Instant messaging between members
+- Real-time notifications
+- Seamless WebSocket connections
+
+### 📱 PWA (Progressive Web App)
+- Installable on desktop & mobile devices
+- Works offline using service workers
+- Dynamic caching for performance
+- Background push notifications
+
+### 🔔 Push Notifications
+- Receive live alerts for new tasks, messages, and updates
+- Configurable via browser notifications
+- Built with **pywebpush** and **service workers**
 
 ---
 
@@ -32,40 +43,23 @@ A powerful real-time team collaboration platform built with **Django** and **Dja
 | **Backend** | Django 4.2.7 + Django Channels |
 | **Frontend** | HTML5, Tailwind CSS, JavaScript |
 | **Real-time** | WebSocket, ASGI |
-| **Database** | SQLite (PostgreSQL ready for production) |
+| **Database** | SQLite (PostgreSQL-ready) |
 | **Authentication** | Django Auth System |
+| **PWA & Notifications** | Service Worker, pywebpush |
 
 ---
 
 ## 📸 Screenshots
 
-administration Page:
+**Administration Page:**  
+![Admin](https://github.com/user-attachments/assets/b2800d99-34a3-4c06-84e3-717a9fc9eb24)
 
-<img width="1857" height="548" alt="Screenshot From 2025-10-21 14-33-56" src="https://github.com/user-attachments/assets/b2800d99-34a3-4c06-84e3-717a9fc9eb24" />
+**Dark Mode:**  
+![Dark Mode](https://github.com/user-attachments/assets/c25173bf-2810-4185-b251-1f368f0c3701)
 
-Dark mode:
-
-<img width="1857" height="548" alt="Screenshot From 2025-10-21 14-34-04" src="https://github.com/user-attachments/assets/c25173bf-2810-4185-b251-1f368f0c3701" />
-
-add group Page:
-
-<img width="1847" height="696" alt="Screenshot From 2025-10-21 14-34-26" src="https://github.com/user-attachments/assets/92ca1ac6-eb56-4c69-9b9b-459dea5c5ccd" />
-
-add user Page:
-
-<img width="1847" height="696" alt="Screenshot From 2025-10-21 14-34-33" src="https://github.com/user-attachments/assets/851559dc-74e7-4911-afa5-dd6c83dba174" />
-
-add chat message Page:
-
-<img width="1847" height="696" alt="Screenshot From 2025-10-21 14-34-38" src="https://github.com/user-attachments/assets/a15d1bc1-ace1-4666-9378-4ed76916e463" />
-
-add project Page:
-
-<img width="1843" height="803" alt="Screenshot From 2025-10-21 14-34-56" src="https://github.com/user-attachments/assets/5f173f7e-a719-482e-8769-a6d53636a8a0" />
-
-add task Page:
-
-<img width="1844" height="901" alt="Screenshot From 2025-10-21 14-35-05" src="https://github.com/user-attachments/assets/01c46c2e-3017-4584-a2fa-373dc1e4daa0" />
+**Add Project / Task / Chat Pages:**  
+![Project](https://github.com/user-attachments/assets/5f173f7e-a719-482e-8769-a6d53636a8a0)
+![Task](https://github.com/user-attachments/assets/01c46c2e-3017-4584-a2fa-373dc1e4daa0)
 
 ---
 
@@ -78,7 +72,6 @@ add task Page:
 ### ⚙️ Installation
 
 ```bash
-# Clone the repository
 git clone https://github.com/yourusername/team-workspace.git
 cd team-workspace
 ```
@@ -107,9 +100,9 @@ python manage.py createsuperuser
 python manage.py runserver
 ```
 
-Access the application:  
-- Main App → http://127.0.0.1:8000  
-- Admin Panel → http://127.0.0.1:8000/admin  
+Access the app:
+- Main: http://127.0.0.1:8000  
+- Admin: http://127.0.0.1:8000/admin
 
 ---
 
@@ -117,12 +110,12 @@ Access the application:
 
 ```
 team_workspace/
-├── workspace/          # Django project settings
+├── workspace/          # Django settings
 ├── projects/           # Project management app
 ├── tasks/              # Task tracking app
 ├── chat/               # Real-time chat app
 ├── templates/          # HTML templates
-└── static/             # Static files
+└── static/             # Static files & service workers
 ```
 
 ---
@@ -130,9 +123,7 @@ team_workspace/
 ## 🔧 Configuration
 
 ### Environment Variables
-
 Create a `.env` file in the root directory:
-
 ```
 DEBUG=True
 SECRET_KEY=your-secret-key
@@ -140,9 +131,7 @@ ALLOWED_HOSTS=localhost,127.0.0.1
 ```
 
 ### Database Setup (Production)
-
 ```python
-# In settings.py
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
@@ -158,12 +147,10 @@ DATABASES = {
 ---
 
 ## 🌐 Real-time Features
-
-This project demonstrates advanced **Django Channels** implementation:
-- WebSocket Consumers for real-time communication  
-- Channel Layers for handling multiple connections  
-- Async support for high-performance messaging  
-- Group Management for project-based chat rooms  
+- WebSocket Consumers for async communication
+- Channel Layers for multiple connections
+- Async task & message updates
+- Group-based chat rooms
 
 ---
 
@@ -180,15 +167,14 @@ This project demonstrates advanced **Django Channels** implementation:
 ---
 
 ## 👥 User Management
-
-- User registration and authentication  
-- Project-based team membership  
-- Role-based permissions *(planned)*  
-- User profile management  
+- User registration & authentication
+- Team-based permissions
+- Role-based access *(planned)*
+- Profile management
 
 ---
 
-## 🚀 Deployment
+## 📦 Deployment
 
 ### Using Docker (Recommended)
 ```bash
@@ -205,30 +191,25 @@ gunicorn workspace.asgi:application -k uvicorn.workers.UvicornWorker
 ---
 
 ## 🤝 Contributing
-
-We welcome contributions! Please feel free to submit pull requests, report bugs, or suggest new features.
-
+We welcome contributions!  
+Follow these steps:
 ```bash
-# Steps
-1. Fork the project
-2. Create your feature branch: git checkout -b feature/AmazingFeature
-3. Commit your changes: git commit -m 'Add some AmazingFeature'
-4. Push to the branch: git push origin feature/AmazingFeature
-5. Open a Pull Request
+git checkout -b feature/AmazingFeature
+git commit -m 'Add some AmazingFeature'
+git push origin feature/AmazingFeature
 ```
+Then open a Pull Request.
 
 ---
-
 
 ## 🙏 Acknowledgments
-
-- Django and Django Channels teams  
-- Tailwind CSS for amazing styling  
-- WebSocket technology for real-time features  
+- Django & Django Channels team
+- Tailwind CSS for styling
+- WebSocket technology for real-time updates
+- pywebpush for push notifications
 
 ---
 
-## 📞 Support
-
-If you have any questions or need help with setup, please open an **issue** or contact the development team.  
-⭐ Don’t forget to **star this repository** if you find it helpful!
+## ⭐ Support
+If you find this project helpful, please **star** it on GitHub!  
+For issues or questions, open an **Issue** in the repository.
