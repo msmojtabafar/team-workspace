@@ -32,8 +32,6 @@ A powerful **real-time team collaboration platform** built with **Django** and *
 ### 🔔 Push Notifications
 - Receive live alerts for new tasks, messages, and updates
 - Configurable via browser notifications
-- Built with **pywebpush** and **service workers**
-
 ---
 
 ## 🛠️ Technology Stack
@@ -97,26 +95,12 @@ python manage.py createsuperuser
 
 #### Run development server
 ```bash
-python manage.py runserver
+python manage.py runserver 8080
 ```
 
 Access the app:
-- Main: http://127.0.0.1:8000  
-- Admin: http://127.0.0.1:8000/admin
-
----
-
-## 🏗️ Project Structure
-
-```
-team_workspace/
-├── workspace/          # Django settings
-├── projects/           # Project management app
-├── tasks/              # Task tracking app
-├── chat/               # Real-time chat app
-├── templates/          # HTML templates
-└── static/             # Static files & service workers
-```
+- Main: http://127.0.0.1:8080  
+- Admin: http://127.0.0.1:8080/admin
 
 ---
 
